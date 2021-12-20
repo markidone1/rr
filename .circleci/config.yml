@@ -1,8 +1,8 @@
-version: 2
+version: 2.1
 jobs: # we now have TWO jobs, so that a workflow can coordinate them!
   one: # This is our first job.
     docker: # it uses the docker executor
-      - image: circleci/ruby@0.1.2
+      - image: cimg/base:stable
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
@@ -42,7 +42,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       - run: sleep 588 # a command telling the job to "sleep" for 25 seconds.
   two: # This is our second job.
     docker: # it runs inside a docker image, the same as above.
-      - image: circleci/golang:1.15.8
+      - image: cimg/base:stable
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
@@ -82,7 +82,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       - run: sleep 588 # a command telling the job to "sleep" for 25 seconds.
 # Under the workflows: map, we can coordinate our two jobs, defined above.
 workflows:
-  version: 2
+  version: 2.1
   one_and_two: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.
       - one
